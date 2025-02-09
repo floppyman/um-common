@@ -4,25 +4,29 @@ import (
 	"time"
 )
 
+// TimeWithOffsetFromLocal returns the 'input' time with an offset of the defined 'location'
+//
 //goland:noinspection GoUnusedExportedFunction
 func TimeWithOffsetFromLocal(input time.Time, location *time.Location) time.Time {
 	timeLocal := input.In(location)
 	_, zoneOffset := timeLocal.Zone()
 	timeLocal = timeLocal.Add(time.Duration(zoneOffset) * time.Second * -1)
-
 	return timeLocal
 }
 
+// TimeWithoutOffsetFromUTC returns the 'input' time without offset from utc
+//
 //goland:noinspection GoUnusedExportedFunction
 func TimeWithoutOffsetFromUTC(input time.Time, location *time.Location) time.Time {
 	timeLocal := input.In(location)
 	_, zoneOffset := timeLocal.Zone()
 	timeLocal = timeLocal.Add(time.Duration(zoneOffset) * time.Second)
-
 	return timeLocal
 }
 
-// ParseDuration parsed a string formatted as a time interval, eg. 2h or 1h30m10s into a time.Duration, if the value cannot be parsed the 'def' is returned
+// ParseDuration takes a duration string representation and converts it into a time.Duration, or returns the 'def' if it fails
+// Examples such as "300ms", "-1.5h" or "2h45m".
+// Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
 //
 //goland:noinspection GoUnusedExportedFunction
 func ParseDuration(value string, def time.Duration) time.Duration {

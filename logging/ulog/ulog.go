@@ -105,7 +105,7 @@ func initLogger(fileSize int64, fileBackups int, allFileName string, errorFileNa
 			Writer: &log.MultiLevelWriter{
 				ConsoleWriter: &log.FileWriter{
 					Filename:     filepath.Join(logsFolderPath, allFileName),
-					MaxSize:      fileSize * 1024 * 1024, //100mb
+					MaxSize:      fileSize * 1024 * 1024, // 100mb
 					MaxBackups:   fileBackups,
 					LocalTime:    false,
 					EnsureFolder: true,
@@ -113,7 +113,7 @@ func initLogger(fileSize int64, fileBackups int, allFileName string, errorFileNa
 				ConsoleLevel: log.TraceLevel,
 				ErrorWriter: &log.FileWriter{
 					Filename:     filepath.Join(logsFolderPath, errorFileName),
-					MaxSize:      fileSize * 1024 * 1024, //100mb
+					MaxSize:      fileSize * 1024 * 1024, // 100mb
 					MaxBackups:   fileBackups,
 					LocalTime:    false,
 					EnsureFolder: true,

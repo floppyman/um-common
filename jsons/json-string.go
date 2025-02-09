@@ -11,6 +11,8 @@ type JsonString struct {
 	Set   bool   `json:"set"`
 }
 
+// NewJsonString creates a new instance of JsonString with the 'value' defined
+//
 //goland:noinspection GoUnusedExportedFunction
 func NewJsonString(value string) *JsonString {
 	return &JsonString{
@@ -20,6 +22,8 @@ func NewJsonString(value string) *JsonString {
 	}
 }
 
+// NullJsonString creates a new instance of JsonString that will serialize to null
+//
 //goland:noinspection GoUnusedExportedFunction
 func NullJsonString() *JsonString {
 	return &JsonString{
@@ -28,6 +32,7 @@ func NullJsonString() *JsonString {
 	}
 }
 
+// MarshalJSON converts from JsonString to Json
 func (i *JsonString) MarshalJSON() ([]byte, error) {
 	if !i.Set || (i.Set && !i.Valid) {
 		return []byte("null"), nil
@@ -36,6 +41,7 @@ func (i *JsonString) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("\"%s\"", i.Value)), nil
 }
 
+// UnmarshalJSON converts from Json to JsonString
 func (i *JsonString) UnmarshalJSON(data []byte) error {
 	// If this method was called, the value was set.
 	i.Set = true
@@ -56,10 +62,12 @@ func (i *JsonString) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ValueOrDefault returns the value or the default value of String '""'
 func (i *JsonString) ValueOrDefault() string {
 	return i.ValueOrDefaultValue("")
 }
 
+// ValueOrDefaultValue returns the value or the defined default value
 func (i *JsonString) ValueOrDefaultValue(val string) string {
 	if i.Set && i.Valid {
 		return i.Value
@@ -67,10 +75,12 @@ func (i *JsonString) ValueOrDefaultValue(val string) string {
 	return val
 }
 
+// ValidAndSet returns true if the JsonString is valid and set
 func (i *JsonString) ValidAndSet() bool {
 	return i.Set && i.Valid
 }
 
+// ToString returns the value as a string
 func (i *JsonString) ToString() string {
 	if !i.Set || (i.Set && !i.Valid) {
 		return "null"

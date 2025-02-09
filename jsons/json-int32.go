@@ -13,6 +13,8 @@ type JsonInt32 struct {
 	Set   bool  `json:"set"`
 }
 
+// NewJsonInt32 creates a new instance of JsonInt32 with the 'value' defined
+//
 //goland:noinspection GoUnusedExportedFunction
 func NewJsonInt32(value int32) *JsonInt32 {
 	return &JsonInt32{
@@ -22,6 +24,8 @@ func NewJsonInt32(value int32) *JsonInt32 {
 	}
 }
 
+// NullJsonInt32 creates a new instance of JsonInt32 that will serialize to null
+//
 //goland:noinspection GoUnusedExportedFunction
 func NullJsonInt32() *JsonInt32 {
 	return &JsonInt32{
@@ -30,6 +34,7 @@ func NullJsonInt32() *JsonInt32 {
 	}
 }
 
+// MarshalJSON converts from JsonInt32 to Json
 func (i *JsonInt32) MarshalJSON() ([]byte, error) {
 	if !i.Set || (i.Set && !i.Valid) {
 		return []byte("null"), nil
@@ -38,6 +43,7 @@ func (i *JsonInt32) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("%d", i.Value)), nil
 }
 
+// UnmarshalJSON converts from Json to JsonInt32
 func (i *JsonInt32) UnmarshalJSON(data []byte) error {
 	// If this method was called, the value was set.
 	i.Set = true
@@ -58,10 +64,12 @@ func (i *JsonInt32) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ValueOrDefault returns the value or the default value of Int32 '0'
 func (i *JsonInt32) ValueOrDefault() int32 {
 	return i.ValueOrDefaultValue(0)
 }
 
+// ValueOrDefaultValue returns the value or the defined default value
 func (i *JsonInt32) ValueOrDefaultValue(val int32) int32 {
 	if i.Set && i.Valid {
 		return i.Value
@@ -69,10 +77,12 @@ func (i *JsonInt32) ValueOrDefaultValue(val int32) int32 {
 	return val
 }
 
+// ValidAndSet returns true if the JsonInt32 is valid and set
 func (i *JsonInt32) ValidAndSet() bool {
 	return i.Set && i.Valid
 }
 
+// ToString returns the value as a string
 func (i *JsonInt32) ToString() string {
 	if !i.Set || (i.Set && !i.Valid) {
 		return "null"

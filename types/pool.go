@@ -9,6 +9,8 @@ type BufferPool struct {
 	sync.Pool
 }
 
+// NewBufferPool creates a new buffer pool
+//
 //goland:noinspection GoUnusedExportedFunction
 func NewBufferPool() *BufferPool {
 	return &BufferPool{

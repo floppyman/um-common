@@ -12,6 +12,8 @@ type JsonTime struct {
 	Set   bool      `json:"set"`
 }
 
+// NewJsonTime creates a new instance of JsonTime with the 'value' defined
+//
 //goland:noinspection GoUnusedExportedFunction
 func NewJsonTime(value time.Time) *JsonTime {
 	return &JsonTime{
@@ -21,6 +23,8 @@ func NewJsonTime(value time.Time) *JsonTime {
 	}
 }
 
+// NullJsonTime creates a new instance of JsonTime that will serialize to null
+//
 //goland:noinspection GoUnusedExportedFunction
 func NullJsonTime() *JsonTime {
 	return &JsonTime{
@@ -29,6 +33,7 @@ func NullJsonTime() *JsonTime {
 	}
 }
 
+// MarshalJSON converts from JsonTime to Json
 func (i *JsonTime) MarshalJSON() ([]byte, error) {
 	if !i.Set || (i.Set && !i.Valid) {
 		return []byte("null"), nil
@@ -37,6 +42,7 @@ func (i *JsonTime) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("\"%s\"", i.Value.Format(time.RFC3339Nano))), nil
 }
 
+// UnmarshalJSON converts from Json to JsonTime
 func (i *JsonTime) UnmarshalJSON(data []byte) error {
 	// If this method was called, the value was set.
 	i.Set = true
@@ -57,10 +63,12 @@ func (i *JsonTime) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ValueOrDefault returns the value or the default value of time.Time 'time.Time{}'
 func (i *JsonTime) ValueOrDefault() time.Time {
 	return i.ValueOrDefaultValue(time.Time{}) // time.Time{} = minimum time 1 jan 0001 00:00:00 UTC
 }
 
+// ValueOrDefaultValue returns the value or the defined default value
 func (i *JsonTime) ValueOrDefaultValue(val time.Time) time.Time {
 	if i.Set && i.Valid {
 		return i.Value
@@ -68,10 +76,12 @@ func (i *JsonTime) ValueOrDefaultValue(val time.Time) time.Time {
 	return val
 }
 
+// ValidAndSet returns true if the JsonTime is valid and set
 func (i *JsonTime) ValidAndSet() bool {
 	return i.Set && i.Valid
 }
 
+// ToString returns the value as a string
 func (i *JsonTime) ToString() string {
 	if !i.Set || (i.Set && !i.Valid) {
 		return "null"

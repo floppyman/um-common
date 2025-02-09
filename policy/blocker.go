@@ -7,6 +7,8 @@ import (
 	"syscall"
 )
 
+// BlockUntilKilled blocks the current thread until a kill signal is received, either of SIGINT, SIGTERM
+//
 //goland:noinspection GoUnusedExportedFunction
 func BlockUntilKilled() {
 	done := make(chan os.Signal, 1)

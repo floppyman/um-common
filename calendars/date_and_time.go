@@ -2,6 +2,8 @@ package calendars
 
 import "time"
 
+// GetMonthName get the name of the month specified or an empty string
+//
 //goland:noinspection GoUnusedExportedFunction
 func GetMonthName(month int) string {
 	switch month {
@@ -33,7 +35,8 @@ func GetMonthName(month int) string {
 	return ""
 }
 
-// DaysInPeriod returns total days | weekdays | monday-thursday | fridays | saturday-sunday
+// DaysInPeriod calculates the total number of days in the specified period, calculating week days, monday to thursdays, fridays and saturday to sundays
+// returns total days | weekdays | monday-thursday | fridays | saturday-sunday
 //
 //goland:noinspection GoUnusedExportedFunction
 func DaysInPeriod(start time.Time, end time.Time) (int, int, int, int, int) {
@@ -43,7 +46,6 @@ func DaysInPeriod(start time.Time, end time.Time) (int, int, int, int, int) {
 	fridays := 0
 	saturdayPlusSunday := 0
 	for {
-		// fmt.Printf("%v, %v\n", start, end)
 		if start.Weekday() != time.Saturday && start.Weekday() != time.Sunday {
 			if start.Weekday() == time.Monday || start.Weekday() == time.Tuesday || start.Weekday() == time.Wednesday || start.Weekday() == time.Thursday {
 				mondayToThursday++
@@ -65,11 +67,15 @@ func DaysInPeriod(start time.Time, end time.Time) (int, int, int, int, int) {
 	}
 }
 
+// IsDateEqual checks if the year and day of year are equal
+//
 //goland:noinspection GoUnusedExportedFunction
 func IsDateEqual(date1 time.Time, date2 time.Time) bool {
 	return date1.Year() == date2.Year() && date1.YearDay() == date2.YearDay()
 }
 
+// AsZone returns 'date' as a new time.Time with the specified 'loc'
+//
 //goland:noinspection GoUnusedExportedFunction
 func AsZone(date time.Time, loc *time.Location) time.Time {
 	return time.Date(date.Year(), date.Month(), date.Day(), date.Hour(), date.Minute(), date.Second(), date.Nanosecond(), loc)

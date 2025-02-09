@@ -2,63 +2,58 @@ package timers
 
 import (
 	"time"
-
-	"github.com/umbrella-sh/um-common/logging/ulog"
 )
 
 type wrapped func()
 type wrappedReturn[Result any] func() Result
 type wrappedReturnErr[Result any] func() (Result, error)
 
-const timedFormat string = "%s - Time %-20v %s\n"
-const timedFormatTotal string = "%s - Time %-20v Total\n"
+//goland:noinspection GoUnusedConst
+const (
+	// TimedFormat format for writing time.Duration to Console or File
+	TimedFormat string = "%s - Time %-20v %s\n"
+	
+	// TimedFormatTotal format for writing total time.Duration to Console or File
+	TimedFormatTotal string = "%s - Time %-20v Total\n"
+)
 
-var DoTimedLogging = false
-
+// TimedTotal takes X number of time.Durations adds them together and return the total
+//
 //goland:noinspection GoUnusedExportedFunction
-func TimedTotal(method string, ds ...time.Duration) {
+func TimedTotal(ds ...time.Duration) time.Duration {
 	var elapsed time.Duration
 	for _, i := range ds {
 		elapsed = elapsed + i
 	}
-	//goland:noinspection GoBoolExpressions
-	if DoTimedLogging {
-		ulog.Console.Trace().Msgf(timedFormatTotal, method, elapsed)
-	}
-}
-
-//goland:noinspection GoUnusedExportedFunction
-func Timed(fn wrapped, method string, key string) time.Duration {
-	start := time.Now()
-	fn()
-	elapsed := time.Since(start)
-	//goland:noinspection GoBoolExpressions
-	if DoTimedLogging {
-		ulog.Console.Trace().Msgf(timedFormat, method, elapsed, key)
-	}
 	return elapsed
 }
 
+// Timed executes the 'fn' and times how long it takes to executes, returns the duration
+//
 //goland:noinspection GoUnusedExportedFunction
-func TimedRes[Result any](fn wrappedReturn[Result], method string, key string) (time.Duration, Result) {
+func Timed(fn wrapped) time.Duration {
+	start := time.Now()
+	fn()
+	elapsed := time.Since(start)
+	return elapsed
+}
+
+// TimedRes executes the 'fn' and times how long it takes to executes, returns the duration + 'fn' result
+//
+//goland:noinspection GoUnusedExportedFunction
+func TimedRes[Result any](fn wrappedReturn[Result]) (time.Duration, Result) {
 	start := time.Now()
 	res := fn()
 	elapsed := time.Since(start)
-	//goland:noinspection GoBoolExpressions
-	if DoTimedLogging {
-		ulog.Console.Trace().Msgf(timedFormat, method, elapsed, key)
-	}
 	return elapsed, res
 }
 
+// TimedResErr executes the 'fn' and times how long it takes to executes, returns the duration + 'fn' result + possible error
+//
 //goland:noinspection GoUnusedExportedFunction
-func TimedResErr[Result any](fn wrappedReturnErr[Result], method string, key string) (time.Duration, Result, error) {
+func TimedResErr[Result any](fn wrappedReturnErr[Result]) (time.Duration, Result, error) {
 	start := time.Now()
 	res, err := fn()
 	elapsed := time.Since(start)
-	//goland:noinspection GoBoolExpressions
-	if DoTimedLogging {
-		ulog.Console.Trace().Msgf(timedFormat, method, elapsed, key)
-	}
 	return elapsed, res, err
 }

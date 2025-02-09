@@ -126,6 +126,24 @@ func SliceWhere[TInput any, TResult any](items []TInput, predicate func(TInput) 
 	return result
 }
 
+// SliceUnique returns a new slice with all duplicates removed, with only the first occurrence of `keySelector` included.
+//
+//goland:noinspection GoUnusedExportedFunction
+func SliceUnique[TKey int | int8 | int32 | int16 | int64 | string, TValue any](arr []TValue, keySelector func(TValue) TKey) []TValue {
+	occurred := make(map[TKey]bool)
+	result := make([]TValue, 0)
+	for e := range arr {
+		key := keySelector(arr[e])
+		// check if already the mapped and variable are set to true or not
+		if _, ok := occurred[key]; !ok {
+			occurred[key] = true
+			// Append to result slice.
+			result = append(result, arr[e])
+		}
+	}
+	return result
+}
+
 // SliceRemove removes the index from the array and keeps the order of elements
 //
 //goland:noinspection GoUnusedExportedFunction

@@ -10,7 +10,7 @@ const ansiColorStripRegexStr = "\x1B(?:[@-Z\\-_]|\\[[0-?]*[ -/]*[@-~])"
 
 var ansiColorStripRegex = regexp.MustCompile(ansiColorStripRegexStr)
 
-// Cut returns a new string at the specified length, or the original string if it is shorter than length
+// Cut cuts a string to the specified length, if it is longer than the specified length
 //
 //goland:noinspection GoUnusedExportedFunction
 func Cut(val string, length int) string {
@@ -38,6 +38,9 @@ func CutUnicode(str string, length int) string {
 	return text
 }
 
+// StripAnsiColors strips all ansi color values from a string
+//
+//goland:noinspection GoUnusedExportedFunction
 func StripAnsiColors(str string) string {
 	return ansiColorStripRegex.ReplaceAllString(str, "")
 }

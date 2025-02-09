@@ -11,6 +11,8 @@ type JsonObject[TValue any] struct {
 	Set   bool   `json:"set"`
 }
 
+// NewJsonObject creates a new instance of JsonObject with the 'value' defined
+//
 //goland:noinspection GoUnusedExportedFunction
 func NewJsonObject[TValue any](value TValue) *JsonObject[TValue] {
 	return &JsonObject[TValue]{
@@ -20,6 +22,8 @@ func NewJsonObject[TValue any](value TValue) *JsonObject[TValue] {
 	}
 }
 
+// NullJsonObject creates a new instance of JsonObject that will serialize to null
+//
 //goland:noinspection GoUnusedExportedFunction
 func NullJsonObject[TValue any]() *JsonObject[TValue] {
 	return &JsonObject[TValue]{
@@ -28,6 +32,7 @@ func NullJsonObject[TValue any]() *JsonObject[TValue] {
 	}
 }
 
+// MarshalJSON converts from JsonObject to Json
 func (i *JsonObject[TValue]) MarshalJSON() ([]byte, error) {
 	if !i.Set || (i.Set && !i.Valid) {
 		return []byte("null"), nil
@@ -40,6 +45,7 @@ func (i *JsonObject[TValue]) MarshalJSON() ([]byte, error) {
 	return bytes, nil
 }
 
+// UnmarshalJSON converts from Json to JsonObject
 func (i *JsonObject[TValue]) UnmarshalJSON(data []byte) error {
 	// If this method was called, the value was set.
 	i.Set = true
@@ -60,6 +66,7 @@ func (i *JsonObject[TValue]) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ValueOrDefaultValue returns the value or the defined default value
 func (i *JsonObject[TValue]) ValueOrDefaultValue(val TValue) TValue {
 	if i.Set && i.Valid {
 		return i.Value
@@ -67,10 +74,12 @@ func (i *JsonObject[TValue]) ValueOrDefaultValue(val TValue) TValue {
 	return val
 }
 
+// ValidAndSet returns true if the JsonObject is valid and set
 func (i *JsonObject[TValue]) ValidAndSet() bool {
 	return i.Set && i.Valid
 }
 
+// ToString returns the value as a string
 func (i *JsonObject[TValue]) ToString() string {
 	if !i.Set || (i.Set && !i.Valid) {
 		return "null"
