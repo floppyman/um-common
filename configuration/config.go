@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"reflect"
 	"regexp"
 
 	"github.com/kelseyhightower/envconfig"
@@ -100,8 +99,8 @@ func save(marshal FuncMarshal, filePath string, config interface{}, shouldOverri
 		return fmt.Errorf("configuration file path is empty, must have a value")
 	}
 
-	if config == nil || reflect.ValueOf(config).Kind() != reflect.Struct {
-		return fmt.Errorf("configuration is nil or must be a struct")
+	if config == nil {
+		return fmt.Errorf("configuration is nil")
 	}
 
 	if !shouldOverride {
