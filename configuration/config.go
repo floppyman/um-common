@@ -71,6 +71,7 @@ func commentRemover(data []byte) []byte {
 }
 
 type FuncMarshal func(in interface{}) (out []byte, err error)
+type FuncMarshalIndent func(v interface{}, prefix string, indent string) (out []byte, err error)
 
 // SaveJson serializes the config to JSON and creates a file at filePath.
 //
@@ -80,7 +81,7 @@ type FuncMarshal func(in interface{}) (out []byte, err error)
 //
 // SaveJson returns 'true, nil' when the file is saved, or shouldOverride is false and file exists, else it returns 'false, err'
 func SaveJson(filePath string, config interface{}, shouldOverride bool) error {
-	return save(json.Marshal, filePath, config, shouldOverride)
+	return save(json.Marshal, nil, filePath, config, shouldOverride)
 }
 
 // SaveYaml serializes the config to YAML and creates a file at filePath.
@@ -91,10 +92,21 @@ func SaveJson(filePath string, config interface{}, shouldOverride bool) error {
 //
 // SaveYaml returns 'true, nil' when the file is saved, or shouldOverride is false and file exists, else it returns 'false, err'
 func SaveYaml(filePath string, config interface{}, shouldOverride bool) error {
-	return save(yaml.Marshal, filePath, config, shouldOverride)
+	return save(yaml.Marshal, nil, filePath, config, shouldOverride)
 }
 
-func save(marshal FuncMarshal, filePath string, config interface{}, shouldOverride bool) error {
+// SaveJson serializes the config to JSON and creates a file at filePath.
+//
+// If shouldOverride is false, and a filePath exists, then the config file will not be written.
+//
+// The config object should define both 'json' and 'envconfig' field names, so that it can be easily loaded with LoadJson.
+//
+// SaveJson returns 'true, nil' when the file is saved, or shouldOverride is false and file exists, else it returns 'false, err'
+func SaveJsonIndented(filePath string, config interface{}, shouldOverride bool) error {
+	return save(nil, json.MarshalIndent, filePath, config, shouldOverride)
+}
+
+func save(marshal FuncMarshal, marshalIndent FuncMarshalIndent, filePath string, config interface{}, shouldOverride bool) error {
 	if filePath == "" {
 		return fmt.Errorf("configuration file path is empty, must have a value")
 	}
@@ -114,7 +126,14 @@ func save(marshal FuncMarshal, filePath string, config interface{}, shouldOverri
 		}
 	}
 
-	bytes, err := marshal(config)
+	var bytes []byte
+	var err error
+	if marshal != nil {
+		bytes, err = marshal(config)
+	}
+	if marshalIndent != nil {
+		bytes, err = marshalIndent(config, "", "\t")
+	}
 	if err != nil {
 		return err
 	}

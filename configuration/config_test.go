@@ -32,6 +32,19 @@ func TestSaveJson(t *testing.T) {
 	}
 }
 
+func TestSaveJsonIndented(t *testing.T) {
+	cfg := saverTestConfig{
+		Name:       "test",
+		Address:    "street 19",
+		PostalCode: 1234,
+		IsBusiness: true,
+	}
+	err := SaveJsonIndented("test.json", cfg, true)
+	if err != nil {
+		t.Error(err)
+	}
+}
+
 func TestSaveYaml(t *testing.T) {
 	cfg := saverTestConfig{
 		Name:       "test",
