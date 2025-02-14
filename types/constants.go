@@ -21,6 +21,6 @@ const (
 	// TimeFormatUtcFullDateTime defines the full date/time without ms and timezone format 2006-01-02T15:04:05Z
 	TimeFormatUtcFullDateTime = "2006-01-02T15:04:05Z"
 
-	// TimeFormatIsoFullDateTimeCompact defines the full date/time with ms in compact format
-	TimeFormatIsoFullDateTimeCompact = "20060102150405000"
+	// TimeFormatIsoFullDateTimeCompact defines the full date/time in compact format
+	TimeFormatIsoFullDateTimeCompact = "20060102_150405"
 )
