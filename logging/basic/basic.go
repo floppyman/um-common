@@ -13,6 +13,10 @@ var (
 	printLnTrace = color.RGB(92, 92, 92).PrintlnFunc()
 	printfTrace  = color.RGB(92, 92, 92).PrintfFunc()
 
+	printGui   = color.RGB(116, 116, 116).PrintFunc()
+	// printLnGui = color.RGB(116, 116, 116).PrintlnFunc()
+	// printfGui  = color.RGB(116, 116, 116).PrintfFunc()
+
 	printDebug   = color.RGB(160, 160, 160).PrintFunc()
 	printLnDebug = color.RGB(160, 160, 160).PrintlnFunc()
 	printfDebug  = color.RGB(160, 160, 160).PrintfFunc()
@@ -54,9 +58,9 @@ func Info(a ...interface{})                 { printInfo(a...) }
 func Infoln(a ...interface{})               { printLnInfo(a...) }
 func Infof(format string, a ...interface{}) { printfInfo(format, a...) }
 func InfoPrint(text string) {
-	printDebug("[")
-	printInfo("info")
-	printDebug("] ")
+	printGui("[")
+	printInfo(" info ")
+	printGui("] ")
 	printLnNormal(text)
 }
 
@@ -64,9 +68,9 @@ func Warn(a ...interface{})                 { printWarn(a...) }
 func Warnln(a ...interface{})               { printLnWarn(a...) }
 func Warnf(format string, a ...interface{}) { printfWarn(format, a...) }
 func WarnPrint(text string) {
-	printDebug("[")
-	printWarn("warn")
-	printDebug("] ")
+	printGui("[")
+	printWarn(" warn ")
+	printGui("] ")
 	printLnNormal(text)
 }
 
@@ -82,30 +86,30 @@ func Success(a ...interface{})                 { printSuccess(a...) }
 func Successln(a ...interface{})               { printLnSuccess(a...) }
 func Successf(format string, a ...interface{}) { printfSuccess(format, a...) }
 func SuccessPrint(text string) {
-	printDebug("[")
-	printSuccess(" ok ")
-	printDebug("] ")
+	printGui("[")
+	printSuccess("  ok  ")
+	printGui("] ")
 	printLnNormal(text)
 }
 
 func BlankPrint(text string) {
-	printDebug("[")
-	printInfo("    ")
-	printDebug("] ")
+	printGui("[")
+	printInfo("      ")
+	printGui("] ")
 	printLnNormal(text)
 }
 
 func FailPrint(text string) {
-	printDebug("[")
-	printError("fail")
-	printDebug("] ")
+	printGui("[")
+	printError("failed")
+	printGui("] ")
 	printLnNormal(text)
 }
 
 func WaitPrint(text string) {
-	printDebug("[")
-	printInfo("wait")
-	printDebug("] ")
+	printGui("[")
+	printInfo(" wait ")
+	printGui("] ")
 	printLnNormal(text)
 }
 
