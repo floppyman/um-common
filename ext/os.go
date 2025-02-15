@@ -1,7 +1,6 @@
 package ext
 
 import (
-	"errors"
 	"log"
 	"os"
 	"path/filepath"
@@ -28,10 +27,23 @@ func WorkingDir() string {
 	return epd
 }
 
-// FileExist checks if the provided `filePath` is an existing file
+// FileExist checks if the provided `filePath` is an existing file on disk
 //
 //goland:noinspection GoUnusedExportedFunction
 func FileExist(filePath string) bool {
-	_, err := os.OpenFile(filePath, os.O_RDONLY, 0)
-	return !errors.Is(err, os.ErrNotExist)
+	return diskEntityExists(filePath)
+}
+
+// FolderExist checks if the provided `folderPath` is an existing folder on disk
+//
+//goland:noinspection GoUnusedExportedFunction
+func FolderExist(folderPath string) bool {
+	return diskEntityExists(folderPath)
+}
+
+func diskEntityExists(entityPath string) bool {
+	if p, _ := filepath.Glob(entityPath); len(p) > 0 {
+		return true
+	}
+	return false
 }
