@@ -29,5 +29,5 @@ func IsValidUrl(val string) (match bool, err error) {
 		return false, err
 	}
 
-	return !urlRegex.Match([]byte(val)), nil
+	return urlRegex.Match([]byte(val)), nil
 }
