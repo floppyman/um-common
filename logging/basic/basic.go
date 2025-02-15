@@ -13,9 +13,7 @@ var (
 	printLnTrace = color.RGB(92, 92, 92).PrintlnFunc()
 	printfTrace  = color.RGB(92, 92, 92).PrintfFunc()
 
-	printGui   = color.RGB(116, 116, 116).PrintFunc()
-	// printLnGui = color.RGB(116, 116, 116).PrintlnFunc()
-	// printfGui  = color.RGB(116, 116, 116).PrintfFunc()
+	printGui = color.RGB(116, 116, 116).PrintFunc()
 
 	printDebug   = color.RGB(160, 160, 160).PrintFunc()
 	printLnDebug = color.RGB(160, 160, 160).PrintlnFunc()
@@ -57,21 +55,35 @@ func Debugf(format string, a ...interface{}) { printfDebug(format, a...) }
 func Info(a ...interface{})                 { printInfo(a...) }
 func Infoln(a ...interface{})               { printLnInfo(a...) }
 func Infof(format string, a ...interface{}) { printfInfo(format, a...) }
-func InfoPrint(text string) {
+func infoPrintHeader() {
 	printGui("[")
 	printInfo(" info ")
 	printGui("] ")
-	printLnNormal(text)
+}
+func InfoPrint(a ...interface{}) {
+	infoPrintHeader()
+	printLnNormal(a...)
+}
+func InfoPrintf(format string, a ...interface{}) {
+	infoPrintHeader()
+	printFNormal(format, a...)
 }
 
 func Warn(a ...interface{})                 { printWarn(a...) }
 func Warnln(a ...interface{})               { printLnWarn(a...) }
 func Warnf(format string, a ...interface{}) { printfWarn(format, a...) }
-func WarnPrint(text string) {
+func warnPrintHeader() {
 	printGui("[")
 	printWarn(" warn ")
 	printGui("] ")
-	printLnNormal(text)
+}
+func WarnPrint(a ...interface{}) {
+	warnPrintHeader()
+	printLnNormal(a...)
+}
+func WarnPrintf(format string, a ...interface{}) {
+	warnPrintHeader()
+	printFNormal(format, a...)
 }
 
 func Error(a ...interface{})                 { printError(a...) }
@@ -85,32 +97,60 @@ func Fatalf(format string, a ...interface{}) { printfFatal(format, a...) }
 func Success(a ...interface{})                 { printSuccess(a...) }
 func Successln(a ...interface{})               { printLnSuccess(a...) }
 func Successf(format string, a ...interface{}) { printfSuccess(format, a...) }
-func SuccessPrint(text string) {
+func successPrintHeader() {
 	printGui("[")
 	printSuccess("  ok  ")
 	printGui("] ")
-	printLnNormal(text)
+}
+func SuccessPrint(a ...interface{}) {
+	successPrintHeader()
+	printLnNormal(a...)
+}
+func SuccessPrintf(format string, a ...interface{}) {
+	successPrintHeader()
+	printFNormal(format, a...)
 }
 
-func BlankPrint(text string) {
+func blankPrintHeader() {
 	printGui("[")
 	printInfo("      ")
 	printGui("] ")
-	printLnNormal(text)
+}
+func BlankPrint(a ...interface{}) {
+	blankPrintHeader()
+	printLnNormal(a...)
+}
+func BlankPrintf(format string, a ...interface{}) {
+	blankPrintHeader()
+	printFNormal(format, a...)
 }
 
-func FailPrint(text string) {
+func failPrintHeader() {
 	printGui("[")
 	printError("failed")
 	printGui("] ")
-	printLnNormal(text)
+}
+func FailPrint(a ...interface{}) {
+	failPrintHeader()
+	printLnNormal(a...)
+}
+func FailPrintf(format string, a ...interface{}) {
+	failPrintHeader()
+	printFNormal(format, a...)
 }
 
-func WaitPrint(text string) {
+func waitPrintHeader() {
 	printGui("[")
 	printInfo(" wait ")
 	printGui("] ")
-	printLnNormal(text)
+}
+func WaitPrint(a ...interface{}) {
+	waitPrintHeader()
+	printLnNormal(a...)
+}
+func WaitPrintf(format string, a ...interface{}) {
+	waitPrintHeader()
+	printFNormal(format, a...)
 }
 
 func TestColors() {
