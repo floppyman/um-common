@@ -53,10 +53,22 @@ func Debugf(format string, a ...interface{}) { printfDebug(format, a...) }
 func Info(a ...interface{})                 { printInfo(a...) }
 func Infoln(a ...interface{})               { printLnInfo(a...) }
 func Infof(format string, a ...interface{}) { printfInfo(format, a...) }
+func InfoPrint(text string) {
+	printDebug("[")
+	printInfo("info")
+	printDebug("] ")
+	printLnNormal(text)
+}
 
 func Warn(a ...interface{})                 { printWarn(a...) }
 func Warnln(a ...interface{})               { printLnWarn(a...) }
 func Warnf(format string, a ...interface{}) { printfWarn(format, a...) }
+func WarnPrint(text string) {
+	printDebug("[")
+	printWarn("warn")
+	printDebug("] ")
+	printLnNormal(text)
+}
 
 func Error(a ...interface{})                 { printError(a...) }
 func Errorln(a ...interface{})               { printLnError(a...) }
@@ -69,31 +81,27 @@ func Fatalf(format string, a ...interface{}) { printfFatal(format, a...) }
 func Success(a ...interface{})                 { printSuccess(a...) }
 func Successln(a ...interface{})               { printLnSuccess(a...) }
 func Successf(format string, a ...interface{}) { printfSuccess(format, a...) }
-
 func SuccessPrint(text string) {
 	printDebug("[")
 	printSuccess(" ok ")
 	printDebug("] ")
 	printLnNormal(text)
 }
-func FailedPrint(text string) {
+
+func BlankPrint(text string) {
+	printDebug("[")
+	printInfo("    ")
+	printDebug("] ")
+	printLnNormal(text)
+}
+
+func FailPrint(text string) {
 	printDebug("[")
 	printError("fail")
 	printDebug("] ")
 	printLnNormal(text)
 }
-func InfoPrint(text string) {
-	printDebug("[")
-	printInfo("info")
-	printDebug("] ")
-	printLnNormal(text)
-}
-func WarnPrint(text string) {
-	printDebug("[")
-	printWarn("warn")
-	printDebug("] ")
-	printLnNormal(text)
-}
+
 func WaitPrint(text string) {
 	printDebug("[")
 	printInfo("wait")
