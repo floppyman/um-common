@@ -5,33 +5,33 @@ import (
 )
 
 var (
-	printNormal   = color.New(color.FgHiWhite).PrintFunc()
-	printLnNormal = color.New(color.FgHiWhite).PrintlnFunc()
-	printFNormal  = color.New(color.FgHiWhite).PrintfFunc()
+	printNormal   = color.RGB(255, 255, 255).PrintFunc()
+	printLnNormal = color.RGB(255, 255, 255).PrintlnFunc()
+	printFNormal  = color.RGB(255, 255, 255).PrintfFunc()
 
-	printTrace   = color.New(color.FgHiBlack).PrintFunc()
-	printLnTrace = color.New(color.FgHiBlack).PrintlnFunc()
-	printfTrace  = color.New(color.FgHiBlack).PrintfFunc()
+	printTrace   = color.RGB(92, 92, 92).PrintFunc()
+	printLnTrace = color.RGB(92, 92, 92).PrintlnFunc()
+	printfTrace  = color.RGB(92, 92, 92).PrintfFunc()
 
-	printDebug   = color.New(color.FgWhite).PrintFunc()
-	printLnDebug = color.New(color.FgWhite).PrintlnFunc()
-	printfDebug  = color.New(color.FgWhite).PrintfFunc()
+	printDebug   = color.RGB(160, 160, 160).PrintFunc()
+	printLnDebug = color.RGB(160, 160, 160).PrintlnFunc()
+	printfDebug  = color.RGB(160, 160, 160).PrintfFunc()
 
-	printInfo   = color.New(color.FgHiCyan).PrintFunc()
-	printLnInfo = color.New(color.FgHiCyan).PrintlnFunc()
-	printfInfo  = color.New(color.FgHiCyan).PrintfFunc()
+	printInfo   = color.RGB(0, 255, 255).PrintFunc()
+	printLnInfo = color.RGB(0, 255, 255).PrintlnFunc()
+	printfInfo  = color.RGB(0, 255, 255).PrintfFunc()
 
-	printWarn   = color.New(color.FgHiYellow).PrintFunc()
-	printLnWarn = color.New(color.FgHiYellow).PrintlnFunc()
-	printfWarn  = color.New(color.FgHiYellow).PrintfFunc()
+	printWarn   = color.RGB(255, 255, 0).PrintFunc()
+	printLnWarn = color.RGB(255, 255, 0).PrintlnFunc()
+	printfWarn  = color.RGB(255, 255, 0).PrintfFunc()
 
-	printError   = color.New(color.FgHiRed).PrintFunc()
-	printLnError = color.New(color.FgHiRed).PrintlnFunc()
-	printfError  = color.New(color.FgHiRed).PrintfFunc()
+	printError   = color.RGB(255, 0, 0).PrintFunc()
+	printLnError = color.RGB(255, 0, 0).PrintlnFunc()
+	printfError  = color.RGB(255, 0, 0).PrintfFunc()
 
-	printFatal   = color.New(color.BgMagenta, color.FgHiWhite).PrintFunc()
-	printLnFatal = color.New(color.BgMagenta, color.FgHiWhite).PrintlnFunc()
-	printfFatal  = color.New(color.BgMagenta, color.FgHiWhite).PrintfFunc()
+	printFatal   = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintFunc()
+	printLnFatal = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintlnFunc()
+	printfFatal  = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintfFunc()
 )
 
 func Print(a ...interface{})                 { printNormal(a...) }
@@ -63,11 +63,11 @@ func Fatalln(a ...interface{})               { printLnFatal(a...) }
 func Fatalf(format string, a ...interface{}) { printfFatal(format, a...) }
 
 func TestColors() {
-	Println("Normal printing")
 	Traceln("Trace")
 	Debugln("Debug")
 	Infoln("Information")
 	Warnln("Warning")
 	Errorln("Error")
 	Fatalln("Fatal")
+	Println("Normal printing")
 }
