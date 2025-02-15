@@ -5,46 +5,69 @@ import (
 )
 
 var (
-	printNormal      = color.New(color.FgHiWhite).PrintlnFunc()
-	printTrace       = color.New(color.FgHiBlack).PrintlnFunc()
-	printDebug       = color.New(color.FgWhite).PrintlnFunc()
-	printInformation = color.New(color.FgHiCyan).PrintlnFunc()
-	printWarning     = color.New(color.FgHiYellow).PrintlnFunc()
-	printError       = color.New(color.FgHiRed).Add(color.Bold).PrintlnFunc()
-	printFatal       = color.New(color.FgHiMagenta).Add(color.Bold).PrintlnFunc()
+	printNormal   = color.New(color.FgHiWhite).PrintFunc()
+	printLnNormal = color.New(color.FgHiWhite).PrintlnFunc()
+	printFNormal  = color.New(color.FgHiWhite).PrintfFunc()
+
+	printTrace   = color.New(color.FgHiBlack).PrintFunc()
+	printLnTrace = color.New(color.FgHiBlack).PrintlnFunc()
+	printfTrace  = color.New(color.FgHiBlack).PrintfFunc()
+
+	printDebug   = color.New(color.FgWhite).PrintFunc()
+	printLnDebug = color.New(color.FgWhite).PrintlnFunc()
+	printfDebug  = color.New(color.FgWhite).PrintfFunc()
+
+	printInfo   = color.New(color.FgHiCyan).PrintFunc()
+	printLnInfo = color.New(color.FgHiCyan).PrintlnFunc()
+	printfInfo  = color.New(color.FgHiCyan).PrintfFunc()
+
+	printWarn   = color.New(color.FgHiYellow).PrintFunc()
+	printLnWarn = color.New(color.FgHiYellow).PrintlnFunc()
+	printfWarn  = color.New(color.FgHiYellow).PrintfFunc()
+
+	printError   = color.New(color.FgHiRed).PrintFunc()
+	printLnError = color.New(color.FgHiRed).PrintlnFunc()
+	printfError  = color.New(color.FgHiRed).PrintfFunc()
+
+	printFatal   = color.New(color.BgMagenta, color.FgHiWhite).PrintFunc()
+	printLnFatal = color.New(color.BgMagenta, color.FgHiWhite).PrintlnFunc()
+	printfFatal  = color.New(color.BgMagenta, color.FgHiWhite).PrintfFunc()
 )
 
-//goland:noinspection GoUnusedExportedFunction
-func Println(text string) {
-	printNormal(text)
-}
+func Print(a ...interface{})                 { printNormal(a...) }
+func Println(a ...interface{})               { printLnNormal(a...) }
+func Printf(format string, a ...interface{}) { printFNormal(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Trace(text string) {
-	printTrace(text)
-}
+func Trace(a ...interface{})                 { printTrace(a...) }
+func Traceln(a ...interface{})               { printLnTrace(a...) }
+func Tracef(format string, a ...interface{}) { printfTrace(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Debug(text string) {
-	printDebug(text)
-}
+func Debug(a ...interface{})                 { printDebug(a...) }
+func Debugln(a ...interface{})               { printLnDebug(a...) }
+func Debugf(format string, a ...interface{}) { printfDebug(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Information(text string) {
-	printInformation(text)
-}
+func Info(a ...interface{})                 { printInfo(a...) }
+func Infoln(a ...interface{})               { printLnInfo(a...) }
+func Infof(format string, a ...interface{}) { printfInfo(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Warning(text string) {
-	printWarning(text)
-}
+func Warn(a ...interface{})                 { printWarn(a...) }
+func Warnln(a ...interface{})               { printLnWarn(a...) }
+func Warnf(format string, a ...interface{}) { printfWarn(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Error(text string) {
-	printError(text)
-}
+func Error(a ...interface{})                 { printError(a...) }
+func Errorln(a ...interface{})               { printLnError(a...) }
+func Errorf(format string, a ...interface{}) { printfError(format, a...) }
 
-//goland:noinspection GoUnusedExportedFunction
-func Fatal(text string) {
-	printFatal(text)
+func Fatal(a ...interface{})                 { printFatal(a...) }
+func Fatalln(a ...interface{})               { printLnFatal(a...) }
+func Fatalf(format string, a ...interface{}) { printfFatal(format, a...) }
+
+func TestColors() {
+	Println("Normal printing")
+	Traceln("Trace")
+	Debugln("Debug")
+	Infoln("Information")
+	Warnln("Warning")
+	Errorln("Error")
+	Fatalln("Fatal")
 }
