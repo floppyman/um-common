@@ -32,6 +32,10 @@ var (
 	printFatal   = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintFunc()
 	printLnFatal = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintlnFunc()
 	printfFatal  = color.BgRGB(160, 0, 160).AddRGB(255, 255, 255).PrintfFunc()
+
+	printSuccess   = color.RGB(0, 255, 0).PrintFunc()
+	printLnSuccess = color.RGB(0, 255, 0).PrintlnFunc()
+	printfSuccess  = color.RGB(0, 255, 0).PrintfFunc()
 )
 
 func Print(a ...interface{})                 { printNormal(a...) }
@@ -61,6 +65,41 @@ func Errorf(format string, a ...interface{}) { printfError(format, a...) }
 func Fatal(a ...interface{})                 { printFatal(a...) }
 func Fatalln(a ...interface{})               { printLnFatal(a...) }
 func Fatalf(format string, a ...interface{}) { printfFatal(format, a...) }
+
+func Success(a ...interface{})                 { printSuccess(a...) }
+func Successln(a ...interface{})               { printLnSuccess(a...) }
+func Successf(format string, a ...interface{}) { printfSuccess(format, a...) }
+
+func SuccessPrint(text string) {
+	printDebug("[")
+	printSuccess(" ok ")
+	printDebug("] ")
+	printLnNormal(text)
+}
+func FailedPrint(text string) {
+	printDebug("[")
+	printError("fail")
+	printDebug("] ")
+	printLnNormal(text)
+}
+func InfoPrint(text string) {
+	printDebug("[")
+	printInfo("info")
+	printDebug("] ")
+	printLnNormal(text)
+}
+func WarnPrint(text string) {
+	printDebug("[")
+	printWarn("warn")
+	printDebug("] ")
+	printLnNormal(text)
+}
+func WaitPrint(text string) {
+	printDebug("[")
+	printInfo("wait")
+	printDebug("] ")
+	printLnNormal(text)
+}
 
 func TestColors() {
 	Traceln("Trace")
