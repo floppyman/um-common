@@ -5,39 +5,46 @@ import (
 )
 
 var (
-	normalColor = color.New(color.FgHiWhite)
-	traceColor  = color.New(color.FgWhite)
-	debugColor  = color.New(color.FgHiBlack)
-	infoColor   = color.New(color.FgHiCyan)
-	warnColor   = color.New(color.FgHiYellow)
-	errorColor  = color.New(color.FgHiRed)
-	fatalColor  = color.New(color.FgHiMagenta)
+	printNormal      = color.New(color.FgHiWhite).PrintlnFunc()
+	printTrace       = color.New(color.FgHiBlack).PrintlnFunc()
+	printDebug       = color.New(color.FgWhite).PrintlnFunc()
+	printInformation = color.New(color.FgHiCyan).PrintlnFunc()
+	printWarning     = color.New(color.FgHiYellow).PrintlnFunc()
+	printError       = color.New(color.FgHiRed).Add(color.Bold).PrintlnFunc()
+	printFatal       = color.New(color.FgHiMagenta).Add(color.Bold).PrintlnFunc()
 )
 
+//goland:noinspection GoUnusedExportedFunction
 func Println(text string) {
-	_, _ = normalColor.Println(text)
+	printNormal(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Trace(text string) {
-	_, _ = traceColor.Println(text)
+	printTrace(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Debug(text string) {
-	_, _ = debugColor.Println(text)
+	printDebug(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Information(text string) {
-	_, _ = infoColor.Println(text)
+	printInformation(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Warning(text string) {
-	_, _ = warnColor.Println(text)
+	printWarning(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Error(text string) {
-	_, _ = errorColor.Println(text)
+	printError(text)
 }
 
+//goland:noinspection GoUnusedExportedFunction
 func Fatal(text string) {
-	_, _ = fatalColor.Println(text)
+	printFatal(text)
 }
