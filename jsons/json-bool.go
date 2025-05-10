@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/umbrella-sh/um-common/ext"
+	"github.com/floppyman/um-common/ext"
 )
 
 // JsonBool defines a struct for handling json values that can be null

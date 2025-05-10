@@ -7,7 +7,7 @@ import (
 	"github.com/phuslu/log"
 	"github.com/robfig/cron/v3"
 
-	"github.com/umbrella-sh/um-common/ext"
+	"github.com/floppyman/um-common/ext"
 )
 
 type UmbrellaLoggerConfig struct {
