@@ -12,13 +12,13 @@ import (
 
 //goland:noinspection GoNameStartsWithPackageName
 type LogrConfig struct {
-	FileSize       int64  `default:"10"`
-	FileBackups    int    `default:"1"`
-	AllFileName    string `default:"all"`
-	ErrorFileName  string `default:"error"`
-	LogsFolderPath string `default:"./logs"`
-	IncludeCaller  bool   `default:"false"`
-	LogTimeFormat  string `default:"2006.01.02 15:04:05.000"`
+	FileSize       int64
+	FileBackups    int
+	AllFileName    string
+	ErrorFileName  string
+	LogsFolderPath string
+	IncludeCaller  bool
+	LogTimeFormat  string
 }
 
 //goland:noinspection GoNameStartsWithPackageName
@@ -41,7 +41,15 @@ var File log.Logger
 //
 //goland:noinspection GoUnusedExportedFunction
 func NewMinimal() {
-	New(LogrConfig{})
+	New(LogrConfig{
+		FileSize:       10,
+		FileBackups:    2,
+		AllFileName:    "all",
+		ErrorFileName:  "error",
+		LogsFolderPath: "./logs",
+		IncludeCaller:  false,
+		LogTimeFormat:  "2006.01.02 15:04:05.000",
+	})
 }
 
 // New creates an instance of the logger and sets the current instance config to the provided.
