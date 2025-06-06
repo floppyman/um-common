@@ -83,11 +83,9 @@ func ByteSize(bytes uint64) string {
 	case bytes >= uByte:
 		unit = "B"
 	default:
-		return "0B"
+		return "B"
 	}
-	result := strconv.FormatFloat(value, 'f', 1, 64)
-	result = strings.TrimSuffix(result, ".0")
-	return result + unit
+	return fmt.Sprintf("%.0f %s", value, unit)
 }
 
 // ToString Change arg to string
@@ -153,7 +151,7 @@ func ToString(arg any, timeFormat ...string) string {
 			buf.WriteString("]")
 			return buf.String()
 		}
-
+		
 		// For types not explicitly handled, use fmt.Sprint to generate a string representation
 		return fmt.Sprint(arg)
 	}
