@@ -45,7 +45,7 @@ func CopyBytes(b []byte) []byte {
 }
 
 const (
-	uByte = 1 << (10 * iota)
+	uByte float64 = 1 << (10 * iota)
 	uKilobyte
 	uMegabyte
 	uGigabyte
@@ -58,34 +58,35 @@ const (
 // The unit that results in the smallest number greater than or equal to 1 is always chosen.
 //
 //goland:noinspection GoUnusedExportedFunction
-func ByteSize(bytes uint64) string {
+func ByteSize(bytes float64) string {
 	unit := ""
-	value := float64(bytes)
 	switch {
 	case bytes >= uExabyte:
 		unit = "EB"
-		value /= uExabyte
+		bytes /= uExabyte
 	case bytes >= uPetabyte:
 		unit = "PB"
-		value /= uPetabyte
+		bytes /= uPetabyte
 	case bytes >= uTerabyte:
 		unit = "TB"
-		value /= uTerabyte
+		bytes /= uTerabyte
 	case bytes >= uGigabyte:
 		unit = "GB"
-		value /= uGigabyte
+		bytes /= uGigabyte
 	case bytes >= uMegabyte:
 		unit = "MB"
-		value /= uMegabyte
+		bytes /= uMegabyte
 	case bytes >= uKilobyte:
 		unit = "KB"
-		value /= uKilobyte
+		bytes /= uKilobyte
 	case bytes >= uByte:
 		unit = "B"
 	default:
 		return "B"
 	}
-	return fmt.Sprintf("%.0f %s", value, unit)
+	
+	val := strconv.FormatFloat(bytes, 'f', 1, 64)
+	return fmt.Sprintf("%s %s", val, unit)
 }
 
 // ToString Change arg to string
