@@ -3,6 +3,8 @@ package calendars
 import "time"
 
 // DateOnly returns the date with 00:00:00.0 time from the provided time instance in the same location
+//
+//goland:noinspection GoUnusedExportedFunction
 func DateOnly(t time.Time) time.Time {
 	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
 }
