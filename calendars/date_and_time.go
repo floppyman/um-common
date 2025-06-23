@@ -2,6 +2,11 @@ package calendars
 
 import "time"
 
+// DateOnly returns the date with 00:00:00.0 time from the provided time instance in the same location
+func DateOnly(t time.Time) time.Time {
+	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+}
+
 // GetMonthName get the name of the month specified or an empty string
 //
 //goland:noinspection GoUnusedExportedFunction
@@ -60,7 +65,7 @@ func DaysInPeriod(start time.Time, end time.Time) (int, int, int, int, int) {
 		}
 		totalDays++
 		start = start.Add(time.Hour * 24)
-
+		
 		if start.Equal(end) {
 			return totalDays, weekDays, mondayToThursday, fridays, saturdayPlusSunday
 		}
