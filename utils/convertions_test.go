@@ -3,7 +3,7 @@ package utils
 import "testing"
 
 func Test_ByteSize(t *testing.T) {
-	tests := make([]uint64, 0)
+	tests := make([]float64, 0)
 	tests = append(tests, 0)
 	tests = append(tests, uByte)
 	tests = append(tests, uKilobyte)
@@ -18,7 +18,7 @@ func Test_ByteSize(t *testing.T) {
 	tests = append(tests, uTerabyte+(uTerabyte/2))
 	tests = append(tests, uPetabyte+(uPetabyte/2))
 	tests = append(tests, uExabyte+(uExabyte/2))
-
+	
 	expectedResults := make([]string, 0)
 	expectedResults = append(expectedResults, "0B")
 	expectedResults = append(expectedResults, "1B")
@@ -34,7 +34,7 @@ func Test_ByteSize(t *testing.T) {
 	expectedResults = append(expectedResults, "1.5TB")
 	expectedResults = append(expectedResults, "1.5PB")
 	expectedResults = append(expectedResults, "1.5EB")
-
+	
 	for i := range len(tests) {
 		et := expectedResults[i]
 		r := ByteSize(tests[i])
